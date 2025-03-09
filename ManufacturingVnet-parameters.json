@@ -1,0 +1,197 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "westeurope"
+        },
+        "extendedLocation": {
+            "value": {}
+        },
+        "virtualNetworkName": {
+            "value": "ManufacturingVnet"
+        },
+        "tagsByResource": {
+            "value": {
+                "Microsoft.Network/virtualNetworks": {},
+                "Microsoft.Network/ddosProtectionPlans": {},
+                "Microsoft.Network/publicIPAddresses": {},
+                "Microsoft.Network/azureFirewalls": {},
+                "Microsoft.Network/bastionHosts": {},
+                "Microsoft.Network/natGateways": {},
+                "Microsoft.Network/publicIPPrefixes": {},
+                "Microsoft.Network/networkSecurityGroups": {}
+            }
+        },
+        "addressSpace": {
+            "value": {
+                "addressPrefixes": [
+                    "10.20.0.0/16"
+                ]
+            }
+        },
+        "encryptionEnabled": {
+            "value": false
+        },
+        "encryptionEnforcement": {
+            "value": "AllowUnencrypted"
+        },
+        "subnets": {
+            "value": [
+                {
+                    "name": "default",
+                    "properties": {
+                        "addressPrefixes": [
+                            "10.20.0.0/24"
+                        ]
+                    }
+                },
+                {
+                    "name": "SharedServicesSubnet",
+                    "properties": {
+                        "addressPrefixes": [
+                            "10.20.10.0/24"
+                        ],
+                        "privateEndpointNetworkPolicies": "Disabled"
+                    }
+                },
+                {
+                    "name": "DatabaseSubnet",
+                    "properties": {
+                        "addressPrefixes": [
+                            "10.20.20.0/24"
+                        ],
+                        "privateEndpointNetworkPolicies": "Disabled"
+                    }
+                }
+            ]
+        },
+        "ddosProtectionPlanEnabled": {
+            "value": false
+        },
+        "firewallEnabled": {
+            "value": false
+        },
+        "bastionEnabled": {
+            "value": false
+        },
+        "ddosProtectionPlanIsNew": {
+            "value": false
+        },
+        "firewallPublicIpAddressIsNew": {
+            "value": false
+        },
+        "firewallPolicyIsNew": {
+            "value": false
+        },
+        "firewallPolicyManagementPublicIPAddressIsNew": {
+            "value": false
+        },
+        "bastionPublicIpAddressIsNew": {
+            "value": false
+        },
+        "bastionNsgIsNew": {
+            "value": false
+        },
+        "ddosProtectionPlanName": {
+            "value": "##ddos-protection-plan-name-not-set##"
+        },
+        "ddosProtectionPlanId": {
+            "value": "##ddos-protection-plan-id-not-set##"
+        },
+        "firewallName": {
+            "value": "##firewall-name-not-set##"
+        },
+        "firewallSkuTier": {
+            "value": "Standard"
+        },
+        "firewallPublicIpAddressName": {
+            "value": "##firewall-public-ip-name-not-set##"
+        },
+        "firewallPublicIpAddressId": {
+            "value": ""
+        },
+        "firewallPolicyName": {
+            "value": "##firewall-policy-name-not-set##"
+        },
+        "firewallPolicyId": {
+            "value": "##firewall-policy-id-not-set##"
+        },
+        "firewallPolicyTier": {
+            "value": "Standard"
+        },
+        "firewallPolicyManagementPublicIPAddressName": {
+            "value": "##firewall-policy-management-public-i-p-address-name-not-set##"
+        },
+        "firewallPolicyManagementPublicIPAddressId": {
+            "value": "##firewall-policy-management-public-i-p-address-id-not-set##"
+        },
+        "bastionName": {
+            "value": "##bastion-name-not-set##"
+        },
+        "bastionPublicIpAddressName": {
+            "value": "##bastion-public-ip-address-name-not-set##"
+        },
+        "bastionPublicIPAddressId": {
+            "value": ""
+        },
+        "bastionNsgName": {
+            "value": "##bastion-nsg-name-not-set##"
+        },
+        "bastionNsgId": {
+            "value": "##bastion-nsg-id-not-set##"
+        },
+        "natGatewaysWithNewPublicIpAddress": {
+            "value": []
+        },
+        "natGatewaysWithoutNewPublicIpAddress": {
+            "value": []
+        },
+        "natGatewayPublicIpAddressesNewNames": {
+            "value": []
+        },
+        "networkSecurityGroupsNew": {
+            "value": []
+        },
+        "ipv6Enabled": {
+            "value": false
+        },
+        "subnetCount": {
+            "value": 3
+        },
+        "addressSpaceStartingAddressChanged": {
+            "value": true
+        },
+        "addressSpaceAddressSizeChanged": {
+            "value": false
+        },
+        "defaultSubnetChanged": {
+            "value": true
+        },
+        "subnetsInfo": {
+            "value": [
+                {
+                    "cidr": "10.20.0.0/24",
+                    "name": "Default",
+                    "natGw": "none",
+                    "nsg": "none",
+                    "udr": "none"
+                },
+                {
+                    "cidr": "10.20.10.0/24",
+                    "name": "Default",
+                    "natGw": "none",
+                    "nsg": "none",
+                    "udr": "none"
+                },
+                {
+                    "cidr": "10.20.20.0/24",
+                    "name": "Default",
+                    "natGw": "none",
+                    "nsg": "none",
+                    "udr": "none"
+                }
+            ]
+        }
+    }
+}
