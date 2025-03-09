@@ -1,0 +1,93 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2021-02-01",
+      "location": "westeurope",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.1.0.0/16"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "default",
+            "properties": {
+              "addressPrefix": "10.1.0.0/24"
+            }
+          }
+        ]
+      },
+      "name": "CoreInfraVnet"
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2021-02-01",
+      "location": "westeurope",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.2.0.0/16"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "default",
+            "properties": {
+              "addressPrefix": "10.2.0.0/24"
+            }
+          }
+        ]
+      },
+      "name": "ProdInfraVnet"
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+      "apiVersion": "2021-02-01",
+      "properties": {
+        "allowVirtualNetworkAccess": true,
+        "allowForwardedTraffic": true,
+        "useRemoteGateways": false
+      },
+      "name": "CoreToProdPeering",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'CoreInfraVnet')]",
+        "[resourceId('Microsoft.Network/virtualNetworks', 'ProdInfraVnet')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/routeTables",
+      "apiVersion": "2021-02-01",
+      "location": "westeurope",
+      "properties": {
+        "routes": [
+          {
+            "name": "RouteToProdInfraVnet",
+            "properties": {
+              "addressPrefix": "10.2.0.0/16",
+              "nextHopType": "None"
+            }
+          }
+        ]
+      },
+      "name": "CoreInfraRouteTable"
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks/subnets",
+      "apiVersion": "2021-02-01",
+      "properties": {
+        "routeTable": {
+          "id": "[resourceId('Microsoft.Network/routeTables', 'CoreInfraRouteTable')]"
+        }
+      },
+      "name": "[concat('CoreInfraVnet/', 'default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'CoreInfraVnet')]",
+        "[resourceId('Microsoft.Network/routeTables', 'CoreInfraRouteTable')]"
+      ]
+    }
+  ]
+}
